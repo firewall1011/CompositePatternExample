@@ -28,7 +28,19 @@ ConsoleTriangle rfinger = new("Right finger");
 lfinger.Transform.Position = -Vector3.UnitX * 0.1f;
 rfinger.Transform.Position =  Vector3.UnitX * 0.1f;
 
+// Create his ears and head
+Leaf rear = new();
+Leaf lear = new();
+lear.Transform.Position = new(-0.2f, 0.2f, 0.0f);
+rear.Transform.Position = new( 0.2f, 0.2f, 0.0f);
+
+ConsoleCircle head = new("Head");
+head.Transform.Position = Vector3.UnitY * 0.5f;
+
 // Build his hierarchy
+
+// Add ears to head
+head.Add(lear, rear);
 
 // Add fingers to hands
 lhand.Add(lfinger);
@@ -38,8 +50,8 @@ rhand.Add(rfinger);
 larm.Add(lhand);
 rarm.Add(rhand);
 
-// Add arms to body
-body.Add(larm, rarm);
+// Add arms and head to body
+body.Add(larm, rarm, head);
 
 // Add body to our object
 strangePerson.Add(body);
@@ -51,6 +63,9 @@ Console.ReadLine();
 // Rotate their arms by 45º degrees
 larm.Transform.Rotation = Vector3.UnitZ * MathF.PI / 4;
 rarm.Transform.Rotation = Vector3.UnitZ * MathF.PI / 4;
+
+// Rotate their head by 90º degrees
+head.Transform.Rotation = Vector3.UnitZ * MathF.PI / 2;
 
 // Draw them
 strangePerson.Draw();
